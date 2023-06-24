@@ -1,0 +1,43 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+import org.gradle.api.initialization.resolve.RulesMode
+
+rootProject.name = 'config-server-demo'
+
+dependencyResolutionManagement{
+    repositories {
+        mavenCentral()
+    }
+
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // Repositories mentioned in this file are final (i.e. you cannot override in sub modules)
+    rulesMode.set(RulesMode.FAIL_ON_PROJECT_RULES)
+    // Versions declared in this file are final (i.e. you cannot override in sub modules)
+
+    versionCatalogs{
+
+        tools {
+            // Plugin Versions
+            version('spring-boot-plugin', '2.7.9')
+            version('spring-dependency-management-plugin', '1.0.15.RELEASE')
+
+            // Plugin Dependencies
+            // https://docs.gradle.org/current/userguide/platforms.html#sec:plugins
+            plugin('spring.boot.plugin', 'org.springframework.boot').versionRef('spring-boot-plugin')
+            plugin('spring.dependency.management.plugin', 'io.spring.dependency-management').versionRef('spring-dependency-management-plugin')
+        }
+
+        libs{
+            // Library Versions
+            version('spring-boot', '2.7.9')
+            version('spring-cloud', '3.1.2')
+
+            // Spring Cloud Config-server
+            library('spring.cloud.config.server', 'org.springframework.cloud', 'spring-cloud-config-server').versionRef('spring-cloud')
+            // dependency for process bootstrap.yaml
+            library('spring.cloud.bootstrap', 'org.springframework.cloud', 'spring-cloud-starter-bootstrap').versionRef('spring-cloud')
+
+        }
+    }
+}
+include 'config-server'
+

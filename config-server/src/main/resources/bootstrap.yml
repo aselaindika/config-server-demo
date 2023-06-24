@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: spring-cloud-config-service
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          add-label-locations: true
+          search-locations: ./config-server-repository

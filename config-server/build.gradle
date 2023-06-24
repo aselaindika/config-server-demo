@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    alias(tools.plugins.spring.boot.plugin)
+    alias(tools.plugins.spring.dependency.management.plugin)
+}
+
+sourceCompatibility = '11'
+
+dependencies {
+    implementation libs.spring.cloud.bootstrap
+    implementation libs.spring.cloud.config.server
+}
+
+// Provide build information to "META-INF/build-info.properties"
+// https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#integrating-with-actuator
+springBoot {
+    buildInfo()
+}
